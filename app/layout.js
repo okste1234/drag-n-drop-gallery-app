@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
   title: 'FotoGram',
   description: 'FotoGram App, Drag and Drop App, Transform Your Gallery with Effortless Drag and Drop Arrangement!',
-  author: "Adekunle Stephen Omorotimi"
+  author: "Adekunle St"
 }
 
 export default function RootLayout({ children }) {
