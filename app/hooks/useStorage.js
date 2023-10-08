@@ -10,7 +10,7 @@ const useStorage = () => {
     const [progress, setProgress] = useState(0)
     const [error, setError] = useState(null)
     const { user } = AuthConsumer()
-    console.log(user)
+    // console.log(user)
 
     const startUpload = (file) => {
         if (!file) {

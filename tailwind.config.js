@@ -5,7 +5,7 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ], daisyui: {
-    themes: ["light", "dark", "cupcake", "night"],
+    themes: ["light", "dark", "cupcake", "night", "forest", "business", "black"],
   },
   theme: {
     extend: {
@@ -17,7 +17,8 @@ module.exports = {
       fontFamily: {
         'poppins': ['Poppins', 'sans-serif']
       }, screens: {
-        xs: "476px"
+        xs: "476px",
+        xfold: "290px",
       }, transitionDuration: {
         '1500': '1500ms',
         '1700': '1700ms',

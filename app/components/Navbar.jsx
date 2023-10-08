@@ -15,18 +15,30 @@ const Navbar = () => {
 		}
 	};
 	return (
-		<div className="navbar bg-base-100 justify-between items-center pt-1 px-2">
-			<a className="normal-case text-2xl underline">
-				foto<span className="font-bold text-red-700">G</span>ram
+		<div className="navbar bg-base-100 justify-between items-center pt-1 px-2 xs:px-4 sm:px-8 font-bold">
+			<a href="/" className="normal-case text-2xl md:text-3xl underline">
+				foto<span className="font-extrabold text-red-700">G</span>ram
 				<span>
-					<Image alt="logo" src="/p.png" width={35} height={30} />
+					<Image
+						alt="logo"
+						src="/p.png"
+						width={35}
+						height={30}
+						style={{ width: "auto", height: "auto" }}
+					/>
 				</span>
 			</a>
-			<div className="">
-				<button onClick={handleLogout} className="text-red-700 text-lg">
+			<div className="font-bold">
+				<button
+					onClick={handleLogout}
+					className="text-red-700 text-sm xfold:text-lg md:text-xl"
+				>
 					Logout
 				</button>
-				<Link href={"/signup"} className="text-blue-700 text-sm ml-3">
+				<Link
+					href={"/signup"}
+					className="text-blue-700 xfold:text-lg text-sm md:text-xl ml-3"
+				>
 					Signup
 				</Link>
 			</div>

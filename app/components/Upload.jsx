@@ -37,9 +37,9 @@ const Upload = () => {
 					className={`btn gap-3 ${Boolean(progress) && "loading"}`}
 					disabled={!select}
 				>
-					Upload
+					<span className="text-red-900">Upload</span>
 					<span>
-						<Image src={"/r.png"} width={20} height={20} />
+						<Image src={"/r.png"} width={20} height={20} alt="upload" />
 					</span>
 				</button>
 			</form>

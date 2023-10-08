@@ -6,7 +6,7 @@ import PrivateConsumer from "./routes/PrivateConsumer";
 export default function Home() {
   return (
     <PrivateConsumer>
-      <div className="bg-white max-w-[1600px] m-auto">
+      <div className="max-w-[1600px] m-auto">
         <nav>
           <Navbar />
         </nav>

@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import useFirestoreDb from "../hooks/useFirestoreDb";
+// import Aos from "aos";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -12,7 +15,7 @@ const LoadingIndicator = () => (
 
 const BlurImg = () => {
 	const [isLoading, setLoading] = useState(true);
-	const [isDragging, setIsDragging] = useState(false); // Change the initial state to false
+	const [isDragging, setIsDragging] = useState(false);
 	const [img, setImg] = useState([]);
 
 	const { docs: images, isLoadingg } = useFirestoreDb("images");
@@ -22,7 +25,11 @@ const BlurImg = () => {
 			setImg(images);
 			setLoading(false);
 		}
-		AOS.init();
+		AOS.init({
+			duration: 1500,
+			easing: "ease-out-cubic",
+			once: true,
+		});
 	}, [isLoadingg, images]);
 
 	if (isLoadingg) {
@@ -36,13 +43,13 @@ const BlurImg = () => {
 	const handleDragStart = (e, index) => {
 		e.dataTransfer.setData("text/plain", index.toString());
 		setIsDragging(true);
+		e.target.style.translate = "40px";
 	};
 
 	const handleDragEnd = (e) => {
-		e.preventDefault();
 		setIsDragging(false);
+		e.target.style.translate = 0; // Example: Resetting opacity
 	};
-
 	const handleDragOver = (e) => {
 		e.preventDefault();
 	};
@@ -55,23 +62,27 @@ const BlurImg = () => {
 		e.preventDefault();
 	};
 
-	const handleDrop = (e, newIndex) => {
+	const handleDrop = (e, index) => {
 		e.preventDefault();
+		setIsDragging(false);
+
 		const startIndex = parseInt(e.dataTransfer.getData("text/plain"));
-		const newImages = [...img];
-		const [draggedImage] = newImages.splice(startIndex, 1);
-		newImages.splice(newIndex, 0, draggedImage);
-		setImg(newImages);
+		const setNew = [...img];
+		const [draggadImg] = setNew.splice(startIndex, 1);
+		setNew.splice(index, 0, draggadImg);
+		setImg(setNew);
+		AOS.refreshHard();
 	};
 
 	return (
-		<div className="grid gap-y-10 gap-x-6 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 cursor-grab">
+		<div className="aspect-auto columns-3xs xs:columns-2 sm:columns-2xs xl:columns-4 gap-y-10 gap-x-6 xl:gap-x-8 cursor-move">
+			{/* grid gap-y-10 gap-x-6 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4
+			xl:gap-x-8 as*/}
 			{img.map((image, index) => (
 				<div
-					draggable={true}
-					data-aos="fade-up"
-					onDragEnd={handleDragEnd}
+					draggable
 					onDragStart={(e) => handleDragStart(e, index)}
+					onDragEnd={handleDragEnd}
 					onDragOver={handleDragOver}
 					onDragEnter={handleDragEnter}
 					onDragLeave={handleDragLeave}
@@ -82,30 +93,41 @@ const BlurImg = () => {
 					)}
 					key={index}
 				>
-					<div className="relative aspect-w-1 aspect-h-1 w-full h-[376px] sm:h-[300px] overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
-						<Image
+					<div
+						data-aos="zoom-out-up"
+						className="relative w-full h-auto overflow-hidden rounded-lg  mb-6 border-red-700 border"
+					>
+						{/* h-[376px] sm:h-[300px] */}
+						<img
+							data-aos="zoom-out-down"
+							data-aos-duration="3000"
 							layout="fill"
+							// sizes="100vw"
+							// style={{ width: "auto", height: "auto" }}
 							alt="Gallery image"
-							objectFit="cover"
 							src={image.imageUrl}
+							// src={"https://bit.ly/placeholder-img"}
 							className={cssClass(
-								"duration-700 ease-in-out group-hover:opacity-75 h-full w-full",
+								"rounded-lg object-cover duration-700 ease-in-out group-hover:opacity-75 h-full w-full bg-gray-200",
 								isLoading
 									? "scale-110 blur-2xl grayscale"
 									: "scale-100 blur-0 grayscale-0"
 							)}
-							onLoadingComplete={() => setLoading(false)}
+							onLoad={() => setLoading(false)}
 						/>
+						<h3 className="px-1 pt-4 text-sm text-gray-500">
+							Created by:{" "}
+							<span className="text-lg font-medium text-gray-300">
+								{image.userName}
+							</span>
+						</h3>
+						<p className="px-1 pt-1 pb-4 text-sm text-gray-500">
+							Created On:{" "}
+							<span className="text-gray-300">
+								{image.createdAt.toLocaleDateString()}
+							</span>
+						</p>
 					</div>
-					<h3 className="mt-4 text-sm text-gray-700">
-						Created by:{" "}
-						<span className="text-lg font-medium text-gray-900">
-							{image.userName}
-						</span>
-					</h3>
-					<p className="mt-1 text-sm text-gray-700">
-						Created On: {image.createdAt.toLocaleDateString()}
-					</p>
 				</div>
 			))}
 		</div>

@@ -15,7 +15,7 @@ const useFirestoreDb = (collectionName) => {
                 unsubscribe = onSnapshot(q, (querySnapshot) => {
                     const images = [];
                     querySnapshot.forEach((doc) => {
-                        console.log(doc.data());
+                        // console.log(doc.data());
                         const imageUrl = doc.data().imageUrl
                         const createdAt = doc.data().createdAt.toDate()
                         const userName = doc.data().userName
