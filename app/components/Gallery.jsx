@@ -8,7 +8,11 @@ const Gallery = () => {
 				<p>
 					Transform Your Gallery with Effortless{" "}
 					<span className="text-blue-700 font-bold">Drag & Drop</span>{" "}
-					Arrangement!
+					Arrangement! - {"("}
+					<span className="font-light text-base text-red-700">
+						desktop view for better dnd experience
+					</span>
+					{")"}
 				</p>
 			</div>
 			<BlurImg />
