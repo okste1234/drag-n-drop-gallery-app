@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
-const SignUP = () => {
+const Signup = () => {
 	const [userName, setUserName] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
@@ -144,4 +144,4 @@ const SignUP = () => {
 	);
 };
 
-export default SignUP;
+export default Signup;
